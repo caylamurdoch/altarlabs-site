@@ -295,24 +295,84 @@ footer {
 
 .links {
   display: flex;
-  gap: 3rem;
+  gap: 4rem;
   justify-content: center;
-  margin-top: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
-.links a {
-  color: var(--bone);
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.5rem;
   text-decoration: none;
-  font-size: 14px;
-  letter-spacing: 0.1em;
-  border-bottom: 0.5px solid var(--gold-faint);
-  padding-bottom: 4px;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  color: var(--bone);
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.links a:hover {
+.link:hover {
+  transform: translateY(-2px);
+}
+
+.link-label {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.link-handle {
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: var(--bone);
+  transition: color 0.4s ease;
+}
+
+.link-handle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 0.5px;
+  background: var(--crimson);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.link:hover .link-handle {
   color: var(--crimson);
-  border-color: var(--crimson);
+}
+
+.link:hover .link-handle::after {
+  transform: scaleX(1);
+}
+
+.link:hover .link-label {
+  color: var(--crimson);
+}
+
+/* hairline divider between the two links */
+.link + .link {
+  position: relative;
+}
+
+.link + .link::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5px;
+  height: 42px;
+  background: var(--gold-faint);
 }
 
 /* ---------- FOOTER ---------- */
@@ -368,29 +428,6 @@ a:focus-visible {
   color: var(--gold);
 }
 
-/* ---------- LINKS (refined) ---------- */
-
-.links a {
-  position: relative;
-}
-
-.links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 0.5px;
-  background: var(--crimson);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.links a:hover::after {
-  transform: scaleX(1);
-}
-
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 600px) {
@@ -400,8 +437,9 @@ a:focus-visible {
 
   .site-header {
     flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
     padding-bottom: 4rem;
   }
 
@@ -411,7 +449,11 @@ a:focus-visible {
 
   .links {
     flex-direction: column;
-    gap: 1rem;
+    gap: 2.25rem;
+  }
+
+  .link + .link::before {
+    display: none;
   }
 
   .hero-glow {
